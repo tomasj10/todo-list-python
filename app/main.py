@@ -2,7 +2,7 @@ from fastapi import FastAPI, Query, HTTPException
 from sqlmodel import select 
 from typing import Annotated
 
-from db_engine import create_db_and_tables, SessionDep
+from app.db.database import create_db_and_tables, SessionDep
 from app.models.user.user import User
 from app.schemas.public.user_public import UserPublic
 from app.schemas.create.user_create import UserCreate
