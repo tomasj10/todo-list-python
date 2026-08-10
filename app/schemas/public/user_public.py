@@ -1,6 +1,6 @@
 # Returned TO the clients of API
 
-from user_base import UserBase
+from app.models.user.user_base import UserBase
 
 class UserPublic(UserBase):
     def __str__(self): 

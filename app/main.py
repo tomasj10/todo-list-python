@@ -3,10 +3,10 @@ from sqlmodel import select
 from typing import Annotated
 
 from db_engine import create_db_and_tables, SessionDep
-from user import User
-from user_public import UserPublic
-from user_create import UserCreate
-from user_update import UserUpdate
+from app.models.user.user import User
+from app.schemas.public.user_public import UserPublic
+from app.schemas.create.user_create import UserCreate
+from app.schemas.update.user_update import UserUpdate
 
 
 app = FastAPI()

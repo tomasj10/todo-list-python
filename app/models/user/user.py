@@ -1,9 +1,10 @@
-from sqlmodel import Field, SQLModel, Session 
-from db_engine import get_session, create_db_and_tables
+from sqlmodel import Field
 
-from user_base import UserBase
+from app.models.user.user_base import UserBase
 
 class User(UserBase, table=True): 
+    __tablename__ = "users"
+
     password: str = Field(default=None)
 
     def to_json(self): 
