@@ -32,9 +32,10 @@ class UserService:
             raise HTTPException(status_code=500, detail="Unable to process request")
         raise HTTPException(status_code=400, detail="Please, check your credentials again")
 
-    def get_user_by_email(self, user_email : str) -> UserPublic : 
-        if not self.__user_repository.user_exists_by_email(user_email=user_email): 
-            raise HTTPException(status_code=404, detail="User not found")
-
+    def get_user_by_email(self, user_email : str) : 
         user = self.__user_repository.get_user_by_email(user_email=user_email)
-        return user
+
+        if user: 
+            return user
+
+        raise HTTPException(status_code=400, detail="User is not available")
