@@ -8,24 +8,37 @@ from app.models.user.user import User
 from app.schemas.public.user_public import UserPublic
 from app.schemas.create.user_create import UserCreate
 from app.schemas.update.user_update import UserUpdate
+from app.schemas.token.user_with_token import UserWithToken
+from app.schemas.login.user_in_login import UserInLogin
+from app.services.user_service import UserService
+
 
 router = APIRouter(
     prefix="/users",
     tags=["users"],
 )
 
-@router.post('/register', response_model=UserPublic)
+@router.post('/register', status_code=201, response_model=UserPublic)
 def create_user(
     user: UserCreate, 
     session: SessionDep
 ):
-    db_user = User.model_validate(user)
+    try: 
+        return UserService(session=session).signup(user_details=user)
+    except Exception as error: 
+        print(error)
+        raise(error)
 
-    session.add(db_user)
-    session.commit()
-    session.refresh(db_user)
-
-    return db_user
+@router.post('/login', status_code=200, response_model=UserWithToken)
+def login(
+    login_details: UserInLogin,
+    session: SessionDep,
+): 
+    try: 
+        return UserService(session=session).login(login_details=login_details)
+    except Exception as error: 
+        print(error)
+        raise error
 
 @router.get('', response_model=list[UserPublic])
 def read_users(
