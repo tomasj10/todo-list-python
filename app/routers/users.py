@@ -5,11 +5,7 @@ from sqlmodel import select
 
 from app.db.database import create_db_and_tables, SessionDep
 from app.models.user.user import User
-from app.schemas.public.user_public import UserPublic
-from app.schemas.create.user_create import UserCreate
-from app.schemas.update.user_update import UserUpdate
-from app.schemas.token.user_with_token import UserWithToken
-from app.schemas.login.user_in_login import UserInLogin
+from app.schemas.user_schema import UserPublic, UserCreate, UserInLogin, UserWithToken, UserUpdate
 from app.services.user_service import UserService
 
 

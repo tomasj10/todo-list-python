@@ -2,10 +2,7 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException
 
 from app.db.repository.user_repository import UserRepository
-from app.schemas.create.user_create import UserCreate
-from app.schemas.public.user_public import UserPublic
-from app.schemas.login.user_in_login import UserInLogin
-from app.schemas.token.user_with_token import UserWithToken
+from app.schemas.user_schema import UserPublic, UserCreate, UserWithToken, UserInLogin
 from app.core.security.hash_helper import HashHelper
 from app.core.security.auth_handler import AuthHandler
 
@@ -34,3 +31,10 @@ class UserService:
                 return UserWithToken(token=token)
             raise HTTPException(status_code=500, detail="Unable to process request")
         raise HTTPException(status_code=400, detail="Please, check your credentials again")
+
+    def get_user_by_email(self, user_email : str) -> UserPublic : 
+        if not self.__user_repository.user_exists_by_email(user_email=user_email): 
+            raise HTTPException(status_code=404, detail="User not found")
+
+        user = self.__user_repository.get_user_by_email(user_email=user_email)
+        return user

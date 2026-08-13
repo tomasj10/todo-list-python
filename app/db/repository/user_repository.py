@@ -1,6 +1,6 @@
 from .base_repository import BaseRepository
 from app.models.user.user import User
-from app.schemas.create.user_create import UserCreate
+from app.schemas.user_schema import UserCreate
 
 class UserRepository(BaseRepository): 
     def create_user(self, user_data: UserCreate):
