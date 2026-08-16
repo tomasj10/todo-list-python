@@ -16,7 +16,7 @@ def get_current_user(
     # Custom exception
     auth_exception = HTTPException(
         status_code = status.HTTP_401_UNAUTHORIZED,
-        detail = "Invalid Authentication Credentials"
+        detail = "Unauthorized"
     )
 
     if not authorization: 

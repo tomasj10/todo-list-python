@@ -1,15 +1,15 @@
 User registration to create a new user X
 
-Login endpoint to authenticate the user and generate a token 
+Login endpoint to authenticate the user and generate a token  X
 
 CRUD operations for managing the to-do list
 
-Implement user authentication to allow only authorized users to access the to-do list
+Implement user authentication to allow only authorized users to access the to-do list X
 
-Implement error handling and security measures
+Implement error handling and security measures X
 
-Use a database to store the user and to-do list data (you can use any database of your choice)
+Use a database to store the user and to-do list data (you can use any database of your choice) X
 
-Implement proper data validation
+Implement proper data validation X
 
-Implement pagination and filtering for the to-do list
+Implement pagination and filtering for the to-do list X
