@@ -4,7 +4,7 @@ class TodoItemPublic(TodoItemBase):
     id : int
 
 class TodoItemCreate(TodoItemBase):
-    id: int 
+    pass
 
 class TodoItemUpdate(TodoItemBase): 
     title: str | None = None
