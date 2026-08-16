@@ -1,7 +1,7 @@
 import json
 from fastapi import APIRouter, Depends, HTTPException
 
-from app.schemas.todo_item_schema import TodoItemPublic, TodoItemCreate
+from app.schemas.todo_item_schema import TodoItemPublic, TodoItemCreate, TodoItemUpdate
 from app.models.pagination.pagination_todo_response import PaginationTodoResponse
 from app.db.database import SessionDep
 from app.services.to_do_item_service import TodoItemService
@@ -21,7 +21,10 @@ def create_to_do_item(
     user: UserPublic = Depends(get_current_user),
 ) : 
     try:
-        return TodoItemService(session=session).create_to_do_item(to_do_item_details=to_do_item_details)
+        return TodoItemService(session=session).create_to_do_item(
+            to_do_item_details=to_do_item_details,
+            user_email= user.email
+        )
     except Exception as error:
         print(error)
         raise error
@@ -41,3 +44,30 @@ def get_all_to_do_items(
         "limit": limit,
         "total": len(data)
     }
+
+@router.put('/{to_do_item_id}', status_code=200, response_model=TodoItemPublic)
+def update_to_do_item(
+    to_do_item_id: int,
+    to_do_item_details: TodoItemUpdate,
+    session: SessionDep,
+    user: UserPublic = Depends(get_current_user)
+) : 
+    try: 
+        TodoItemService(session=session).to_do_item_belongs_user(to_do_item_id=to_do_item_id, user_id=user.email)
+        return TodoItemService(session=session).update_to_do_item(to_do_item_id=to_do_item_id, to_do_item_details=to_do_item_details)
+
+    except Exception as exception: 
+        print(exception)
+        raise exception
+
+@router.delete('/{to_do_item_id}', status_code=204)
+def delete_to_do_item(
+    to_do_item_id: int,
+    session: SessionDep,
+    user: UserPublic = Depends(get_current_user)
+) : 
+    try: 
+        TodoItemService(session=session).delete_to_do_item(to_do_item_id=to_do_item_id, user_id=user.email)
+    except Exception as exception: 
+        print(exception)
+        raise exception
